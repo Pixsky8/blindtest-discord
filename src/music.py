@@ -35,7 +35,7 @@ def music(data, msg):
     if len(args) > 1:
         if args[1] == "summon":
             summon(data, msg)
-        elif args[1] == disconnect:
+        elif args[1] == "disconnect":
             disconnect()
         elif args[1] == "play":
             if len(args) > 2:

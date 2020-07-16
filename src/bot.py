@@ -2,6 +2,7 @@ import os
 import discord
 import asyncio
 import config
+import music
 import commands
 
 
@@ -24,6 +25,7 @@ async def on_ready():
 @client.event
 async def on_message(message):
     if message.author != client.user:
+
         if message.content.startswith(config.prefix):
             text = message.content[config.prefix_len:]
 
@@ -31,7 +33,17 @@ async def on_message(message):
                 message.channel.send("pong")
 
             elif text.startswith("music"):
-                
+                if massage.author.id in config.admins:
+                    music.music(data, message)
+
+            elif text.startswith("add_admin") and message.author.id in config.admins:
+                for user in message.mentions:
+                    config.add_admin(user.id)
+                config.save()
+
+        elif message.channel.type is discord.DMChannel:
+            
+
 
 
 client.loop.create_task(timer())
