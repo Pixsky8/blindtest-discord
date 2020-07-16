@@ -1,5 +1,8 @@
 # repo specific
 config/settings.json
+*.mp3
+*.wav
+*.webm
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

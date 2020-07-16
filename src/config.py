@@ -22,7 +22,7 @@ class Config:
         }
 
         json_data = json.dumps(data, indent=2)
-        f = open("/app/config/settings.json", "w+")
+        f = open("config/settings.json", "w+")
         f.write(json_data)
         f.close()
 
@@ -31,3 +31,7 @@ class Config:
         self.prefix = prefix
         self.prefix_len = len(self.prefix)
         self.save()
+
+class global_data():
+    def __init__(self):
+        self.voice_client = None

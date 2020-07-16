@@ -10,7 +10,7 @@ COPY . /app/
 WORKDIR /app
 
 # install python dep
-RUN pip3 install discord
+RUN pip3 install discord PyNaCl
 
 # store /data
 VOLUME [ "/data" ]

@@ -2,17 +2,20 @@ import os
 import discord
 import asyncio
 import config
+import commands
+
 
 print("Bot is starting...")
 
+data = config.global_data()
 client = discord.Client()
-config = config.Config()
+config = commands.config
 
 async def timer():
     await client.wait_until_ready()
     while True:
-        os.system("echo \"Timer is alive!\"")
         await asyncio.sleep(20)
+
 
 @client.event
 async def on_ready():
@@ -26,6 +29,10 @@ async def on_message(message):
 
             if text.startswith("ping"):
                 message.channel.send("pong")
+
+            elif text.startswith("music"):
+                
+
 
 client.loop.create_task(timer())
 client.run(config.token)
