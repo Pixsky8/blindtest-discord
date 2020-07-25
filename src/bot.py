@@ -10,7 +10,9 @@ print("Bot is starting...")
 
 data = config.global_data()
 client = discord.Client()
-config = commands.config
+config = music.config
+cmd = None
+
 
 async def timer():
     await client.wait_until_ready()
@@ -26,13 +28,20 @@ async def on_ready():
 async def on_message(message):
     if message.author != client.user:
 
-        if message.content.startswith(config.prefix):
+        if message.channel.type is discord.DMChannel:
+            if cmd:
+                command.main(message)
+            else:
+                message.channel.send("The game is not open yet.")
+
+        # admin commands
+        elif message.content.startswith(config.prefix):
             text = message.content[config.prefix_len:]
 
             if text.startswith("ping"):
                 message.channel.send("pong")
 
-            elif text.startswith("music"):
+            elif text.startswith("music") and message.author.id in config.admins:
                 if massage.author.id in config.admins:
                     music.music(data, message)
 
@@ -41,8 +50,8 @@ async def on_message(message):
                     config.add_admin(user.id)
                 config.save()
 
-        elif message.channel.type is discord.DMChannel:
-            
+            elif text.startswith("set_adm_chan") and message.author.id in config.admins:
+                cmd = commands.Commands(client, message.channel)
 
 
 
