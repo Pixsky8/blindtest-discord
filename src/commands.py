@@ -36,7 +36,7 @@ class Commands:
                     elif react.emoji == "5":
                         points[answers[answer]] += 5
 
-    def update_scoreboard():
+    async def update_scoreboard():
         l = []  # list of users ordered per pts
         for user in self.points:
             added = False
@@ -50,4 +50,4 @@ class Commands:
         for user in l:
             new_sb = self.client.get_user(user) + ": " + self.points[user] + '\n'
         new_sb = new_sb + "```"
-        await self.scoreboard_msg.edit(content=)
+        await self.scoreboard_msg.edit(content=new_sb)
