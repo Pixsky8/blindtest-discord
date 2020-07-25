@@ -32,17 +32,17 @@ async def on_message(message):
             if cmd:
                 command.main(message)
             else:
-                message.channel.send("The game is not open yet.")
+                await message.channel.send("The game is not open yet.")
 
         # admin commands
         elif message.content.startswith(config.prefix):
             text = message.content[config.prefix_len:]
 
             if text.startswith("ping"):
-                message.channel.send("pong")
+                await message.channel.send("pong")
 
             elif text.startswith("music") and message.author.id in config.admins:
-                if massage.author.id in config.admins:
+                if message.author.id in config.admins:
                     music.music(data, message)
 
             elif text.startswith("add_admin") and message.author.id in config.admins:
