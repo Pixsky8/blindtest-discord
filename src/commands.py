@@ -26,15 +26,15 @@ class Commands:
             if len(answer.reactions) > 0:
                 answers.pop(answer)
                 for react in answer.reactions:
-                    if react.emoji == "1": # TODO
+                    if react.emoji == "1️⃣": # TODO
                         points[answers[answer]] += 1
-                    elif react.emoji == "2":
+                    elif react.emoji == "2️⃣":
                         points[answers[answer]] += 2
-                    elif react.emoji == "3":
+                    elif react.emoji == "3️⃣":
                         points[answers[answer]] += 3
-                    elif react.emoji == "4":
+                    elif react.emoji == "4️⃣":
                         points[answers[answer]] += 4
-                    elif react.emoji == "5":
+                    elif react.emoji == "5️⃣":
                         points[answers[answer]] += 5
 
     async def update_scoreboard():
