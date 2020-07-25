@@ -19,6 +19,7 @@ class Commands:
 
     def answer(message):
         answers.append((message.author, async channel.send(message.author.name + ": \"" + message.content + '\"')))
+        await message.add_reaction('👍')
 
     def give_pts(): # takes tuple
         for answer in answers:
