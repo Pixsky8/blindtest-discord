@@ -9,6 +9,9 @@ class Config:
     admins = []
 
     def __init__(self):
+        if not os.path.exists("config/settings.json"):
+            os.system("echo \"Cannot find config/settings.json.\nFile is missing or not setup?\"")
+            raise NameError("Cannot open config/settings.json")
         fsett = open("config/settings.json")
         data = json.load(fsett)
         self.token = data["token"]

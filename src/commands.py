@@ -17,32 +17,33 @@ class Commands:
     def set_sb_chan(self, channel):
         self.scoreboard_chan = channel
 
-    def answer(message):
-        answers.append((message.author, async channel.send(message.author.name + ": \"" + message.content + '\"')))
+    async def answer(self, message):
+        msg_id = await self.channel.send(message.author.name + ": \"" + message.content + '\"')
+        self.answers[message.author] = msg_id
         await message.add_reaction('👍')
 
-    def give_pts(): # takes tuple
-        for answer in answers:
+    def give_pts(self): # takes tuple
+        for answer in self.answers:
             if len(answer.reactions) > 0:
-                answers.pop(answer)
+                self.answers.pop(answer)
                 for react in answer.reactions:
                     if react.emoji == "1️⃣": # TODO
-                        points[answers[answer]] += 1
+                        self.points[self.answers[answer]] += 1
                     elif react.emoji == "2️⃣":
-                        points[answers[answer]] += 2
+                        self.points[self.answers[answer]] += 2
                     elif react.emoji == "3️⃣":
-                        points[answers[answer]] += 3
+                        self.points[self.answers[answer]] += 3
                     elif react.emoji == "4️⃣":
-                        points[answers[answer]] += 4
+                        self.points[self.answers[answer]] += 4
                     elif react.emoji == "5️⃣":
-                        points[answers[answer]] += 5
+                        self.points[self.answers[answer]] += 5
 
-    async def update_scoreboard():
+    async def update_scoreboard(self):
         l = []  # list of users ordered per pts
         for user in self.points:
             added = False
             for i in range(len(l)):
-                if points[l[i]] < points[user]:
+                if self.points[l[i]] < self.points[user]:
                     l.insert(i, user)
                     added = True
             if not added:

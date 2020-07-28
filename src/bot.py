@@ -30,7 +30,7 @@ async def on_message(message):
 
         if message.channel.type is discord.DMChannel:
             if cmd:
-                command.main(message)
+                cmd.main(message)
             else:
                 await message.channel.send("The game is not open yet.")
 

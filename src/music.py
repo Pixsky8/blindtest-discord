@@ -6,21 +6,21 @@ import config
 config = config.Config()
 
 
-def summon(data, msg):
-    if not message.author.voice:
+async def summon(data, msg):
+    if not msg.author.voice:
         msg.channel.send('You are neither connected to a voice channel nor specified a channel to join.')
     destination = msg.author.voice.channel
     if data.voice_client and data.voice_client.is_connected():
-        await voice_client.move_to(destination)
+        await data.voice_client.move_to(destination)
     else:
         data.voice_client = await destination.connect()
 
 
-def disconnect():
+async def disconnect(data):
     await data.voice_client.disconnect()
 
 
-def play(data, msg, arg):
+async def play(data, msg, arg):
     summon(data, msg)
 
     if arg and arg != "":
@@ -30,13 +30,13 @@ def play(data, msg, arg):
         msg.channel.send("No files specified.")
 
 
-def music(data, msg):
+async def music(data, msg):
     args = msg.split()
     if len(args) > 1:
         if args[1] == "summon":
-            summon(data, msg)
+            await summon(data, msg)
         elif args[1] == "disconnect":
-            disconnect()
+            await disconnect(data)
         elif args[1] == "play":
             if len(args) > 2:
-                play(data, msg, args[2])
+                await play(data, msg, args[2])
