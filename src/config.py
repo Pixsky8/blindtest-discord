@@ -25,7 +25,7 @@ class Config:
         data = {
             "token": self.token,
             "prefix": self.prefix,
-            "admin": self.admins
+            "admins": self.admins
         }
 
         json_data = json.dumps(data, indent=2)
@@ -50,6 +50,7 @@ class Config:
 
 
 class global_data():
+    cmd = None
     scores = {}         # dict: user_id: score
     notification = {}   # dict: user_id: response notification msg
     def __init__(self):
