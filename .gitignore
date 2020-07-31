@@ -1,5 +1,6 @@
 # repo specific
 config/settings.json
+data/score.txt
 *.mp3
 *.wav
 *.webm
