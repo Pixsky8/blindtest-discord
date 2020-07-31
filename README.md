@@ -11,3 +11,4 @@ It is recommanded to place the musics in data/
     - scoreboard with updates
     - give points using reactions
     - quick music player with music.json
+    - save points in a file

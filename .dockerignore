@@ -1,0 +1,8 @@
+.git/
+.gitignore
+install.sh
+start.sh
+README.md
+LICENSE
+
+data/

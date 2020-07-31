@@ -21,17 +21,17 @@ async def disconnect(data):
 
 
 async def play(data, msg, arg):
-    summon(data, msg)
+    await summon(data, msg)
 
     if arg and arg != "":
         source = await discord.FFmpegOpusAudio.from_probe(arg)
-        data.voice_client.play(source)
+        await data.voice_client.play(source)
     else:
-        msg.channel.send("No files specified.")
+        await msg.channel.send("No files specified.")
 
 
 async def music(data, msg):
-    args = msg.split()
+    args = msg.content.split()
     if len(args) > 1:
         if args[1] == "summon":
             await summon(data, msg)
