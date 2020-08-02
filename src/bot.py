@@ -16,6 +16,8 @@ conf = music.config
 async def timer():
     await client.wait_until_ready()
     while True:
+        if data.cmd:
+            data.cmd.give_pts()
         await asyncio.sleep(20)
 
 
@@ -60,7 +62,7 @@ async def on_message(message):
                 print("sb channel set")
                 cmd.set_sb_chan(message.channel)
                 await data.cmd.scoreboard_chan.send("sb channel set")
-
+            # end admin commands
 
         elif message.channel.type is discord.ChannelType.private:
             if data.cmd:

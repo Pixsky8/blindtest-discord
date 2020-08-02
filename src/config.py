@@ -50,8 +50,6 @@ class Config:
 
 
 class global_data():
-    cmd = None          # commands class
-    scores = {}         # dict: user_id: score
-    notification = {}   # dict: user_id: response notification msg
-    def __init__(self):
-        self.voice_client = None
+    cmd = None              # commands class
+    scores = {}             # dict {user_id: score}
+    notification = {}       # dict {user_id: response notification msg}

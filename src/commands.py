@@ -1,31 +1,35 @@
 import asyncio
 import discord
 import config
+import music
 
 class Commands:
-    client = None           # client
-    channel = None          # channel
-    scoreboard_chan = None  # channel
-    scoreboard_msg = None   # message
-    answers = {}            # dict: {answer_text(message), author(discord user)}
-    points = {}             # dict: {author, points(int)}
+    client = None           # discord.client
+    channel = None          # discord.channel: adm channel
+    scoreboard_msg = None   # discord.message
+    is_speed_mode = False   # bool: speed or answer mode
+    answers = {}            # dict {answer_text(message): author(discord user)}
+    points = {}             # dict {author: points(int)}
 
-    def __init__(self, client, channel):
+    def __init__(self, client, channel, is_speed_mode):
         self.channel = channel
         self.client = client
+        self.is_speed_mode = is_speed_mode
 
-    def set_sb_chan(self, channel):
-        self.scoreboard_chan = channel
+    async def set_sb_chan(self, channel):
+        self.scoreboard_msg = await channel.send("```Scoreboard\n```")
 
     async def answer(self, message):
-        msg_id = await self.channel.send(message.author.name + ": \"" + message.content + '\"')
-        self.answers[message.author] = msg_id
+        if is_speed_mode:
+            music.pause(channel)
+        else:
+            msg_id = await self.channel.send(message.author.name + ": \"" + message.content + '\"')
+            self.answers[message.author] = msg_id
         await message.add_reaction('👍')
 
-    def give_pts(self): # takes tuple
+    await def give_pts(self): # takes tuple
         for answer in self.answers:
             if len(answer.reactions) > 0:
-                self.answers.pop(answer)
                 for react in answer.reactions:
                     if react.emoji == "1️⃣": # TODO
                         self.points[self.answers[answer]] += 1
@@ -37,6 +41,9 @@ class Commands:
                         self.points[self.answers[answer]] += 4
                     elif react.emoji == "5️⃣":
                         self.points[self.answers[answer]] += 5
+                self.answers.pop(answer)
+        if scoreboard_msg:
+            await update_scoreboard()
 
     async def update_scoreboard(self):
         l = []  # list of users ordered per pts
@@ -52,7 +59,7 @@ class Commands:
             new_sb = self.client.get_user(user) + ": " + self.points[user] + '\n'
         save_scores(new_sb)
         if scoreboard_chan:
-            new_sb = "```" + new_sb + "```"
+            new_sb = "```Scoreboard\n" + new_sb + "```"
             await self.scoreboard_msg.edit(content=new_sb)
 
     def save_scores(self, scoreboard):
