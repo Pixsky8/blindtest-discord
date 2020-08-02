@@ -3,12 +3,12 @@ import discord
 import config
 
 class Commands:
-    client = None
-    channel = None
-    scoreboard_chan = None
-    scoreboard_msg = None
-    answers = {}    # dict: {answer_text(message), author(discord user)}
-    points = {}     # dict: {author, points(int)}
+    client = None           # client
+    channel = None          # channel
+    scoreboard_chan = None  # channel
+    scoreboard_msg = None   # message
+    answers = {}            # dict: {answer_text(message), author(discord user)}
+    points = {}             # dict: {author, points(int)}
 
     def __init__(self, client, channel):
         self.channel = channel

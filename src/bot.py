@@ -25,7 +25,7 @@ async def on_ready():
 
 @client.event
 async def on_message(message):
-    global conf
+    global conf, data, client
     if message.author != client.user:
 
         if message.content.startswith(conf.prefix):
@@ -58,7 +58,7 @@ async def on_message(message):
 
             elif text.startswith("set_sb_chan") and message.author.id in conf.admins:
                 print("sb channel set")
-                cmd.set_sb_chan(message.channel
+                cmd.set_sb_chan(message.channel)
                 await data.cmd.scoreboard_chan.send("sb channel set")
 
 

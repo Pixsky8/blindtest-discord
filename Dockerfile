@@ -4,7 +4,8 @@ FROM debian:buster
 # install packages
 RUN apt update &&\
     apt install -y\
-        python3.7 python3-pip
+        python3.7 python3-pip\
+        ffmpeg
 
 # add source
 COPY . /app/

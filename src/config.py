@@ -3,10 +3,10 @@ import os
 
 class Config:
 
-    token = ""
-    prefix = ""
-    prefix_len = 0
-    admins = []
+    token = ""      # string
+    prefix = ""     # string
+    prefix_len = 0  # integer
+    admins = []     # array of integer
 
     def __init__(self):
         if not os.path.exists("config/settings.json"):
@@ -50,7 +50,7 @@ class Config:
 
 
 class global_data():
-    cmd = None
+    cmd = None          # commands class
     scores = {}         # dict: user_id: score
     notification = {}   # dict: user_id: response notification msg
     def __init__(self):
