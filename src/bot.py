@@ -6,6 +6,8 @@ import music
 import commands
 
 
+IS_SPEED_MODE = False
+
 print("Bot is starting...")
 
 data = config.global_data()
@@ -55,7 +57,7 @@ async def on_message(message):
 
             elif text.startswith("set_adm_chan") and message.author.id in conf.admins:
                 print("adm channel set")
-                data.cmd = commands.Commands(client, message.channel)
+                data.cmd = commands.Commands(client, message.channel, IS_SPEED_MODE)
                 await data.cmd.channel.send("adm channel set")
 
             elif text.startswith("set_sb_chan") and message.author.id in conf.admins:
