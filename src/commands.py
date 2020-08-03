@@ -60,31 +60,25 @@ class Commands:
     async def give_pts(self): # takes tuple
         for ans in self.answers:
             ans_upd = await self.channel.fetch_message(ans.id)
-            for react in ans_upd.reactions:
-                if str(react) == "1️⃣":
-                    self.points[self.answers[ans]] += 1
-                    print("1pt given to " + self.answers[ans].name)
-                    self.answers.pop(ans)
-                    break
-                elif str(react) == "2️⃣":
-                    self.points[self.answers[ans]] += 2
-                    print("2pts given to " + self.answers[ans].name)
-                    self.answers.pop(ans)
-                    break
-                elif str(react) == "3️⃣":
-                    self.points[self.answers[ans]] += 3
-                    print("3pts given to " + self.answers[ans].name)
-                    self.answers.pop(ans)
-                    break
-                elif str(react) == "4️⃣":
-                    self.points[self.answers[ans]] += 4
-                    print("4pts given to " + self.answers[ans].name)
-                    self.answers.pop(ans)
-                    break
-                elif str(react) == "5️⃣":
-                    self.points[self.answers[ans]] += 5
-                    print("5pts given to " + self.answers[ans].name)
-                    self.answers.pop(ans)
-                    break
+            if len(ans_upd) > 0:
+                if not self.answers[ans] in self.points:
+                    self.points[self.answers[ans]] = 0
+                for react in ans_upd.reactions:
+                    if str(react) == "1️⃣":
+                        self.points[self.answers[ans]] += 1
+                        print("1pt given to " + self.answers[ans].name)
+                    elif str(react) == "2️⃣":
+                        self.points[self.answers[ans]] += 2
+                        print("2pts given to " + self.answers[ans].name)
+                    elif str(react) == "3️⃣":
+                        self.points[self.answers[ans]] += 3
+                        print("3pts given to " + self.answers[ans].name)
+                    elif str(react) == "4️⃣":
+                        self.points[self.answers[ans]] += 4
+                        print("4pts given to " + self.answers[ans].name)
+                    elif str(react) == "5️⃣":
+                        self.points[self.answers[ans]] += 5
+                        print("5pts given to " + self.answers[ans].name)
+                self.answers.pop(ans)
         if self.scoreboard_msg:
             await self.update_scoreboard()
