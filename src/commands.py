@@ -61,6 +61,7 @@ class Commands:
         for answer in self.answers:
             if len(answer.reactions) > 0:
                 for react in answer.reactions:
+                    print("emoji: " + react.emoji.name)
                     if react.emoji.name == "one": # TODO
                         self.points[self.answers[answer]] += 1
                         print("1pt given to " + self.answers[answer].name)
