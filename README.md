@@ -1,4 +1,4 @@
-# blindtest-discord
+# Blindtest Discord
 
 This is a bot was created to assist the process of making blind test events
 on discord servers.
@@ -20,13 +20,13 @@ that can be found in the prefix field.
 The `false_malus` field represent the amount of point the players will lose if
 their answer is wrong.
 
-### installing the files
+### Installing the files
 If you are on linux and want to use docker, run the install.sh script.
 
 Otherwise you need to install python3 and ffmpeg from your packet manager and 
 discord.py and PyNaCl from pip.
 
-### adding music
+### Adding music
 It is recommanded to place the musics in data/ since it will be available inside
 of the docker.
 
@@ -65,5 +65,5 @@ points to the player.
 # TODO
 
     - quick music player with music.json
-    - speed mode (1st to answer get the point) to play in teams
+    - finish speed mode (1st to answer get the point) to play in teams
     - using nicknames from the server
