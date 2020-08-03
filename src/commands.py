@@ -59,8 +59,9 @@ class Commands:
 
     async def give_pts(self): # takes tuple
         for answer in self.answers:
+            print("test") # dbg
             for react in answer.reactions:
-                print("emoji: " + react.emoji.name)
+                print("emoji: " + react.emoji.name) # dbg
                 if react.emoji.name == "one": # TODO
                     self.points[self.answers[answer]] += 1
                     print("1pt given to " + self.answers[answer].name)
