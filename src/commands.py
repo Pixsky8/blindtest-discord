@@ -63,27 +63,27 @@ class Commands:
             print(ans.reactions) # dbg
             for react in ans.reactions:
                 print("emoji: " + str(react)) # dbg
-                if react.emoji.name == "one":
+                if react.emoji == "1️⃣":
                     self.points[self.answers[ans]] += 1
                     print("1pt given to " + self.answers[ans].name)
                     self.answers.pop(ans)
                     break
-                elif react.emoji.name == "two":
+                elif react.emoji == "2️⃣":
                     self.points[self.answers[ans]] += 2
                     print("2pts given to " + self.answers[ans].name)
                     self.answers.pop(ans)
                     break
-                elif react.emoji.name == "three":
+                elif react.emoji == "3️⃣":
                     self.points[self.answers[ans]] += 3
                     print("3pts given to " + self.answers[ans].name)
                     self.answers.pop(ans)
                     break
-                elif react.emoji.name == "four":
+                elif react.emoji == "4️⃣":
                     self.points[self.answers[ans]] += 4
                     print("4pts given to " + self.answers[ans].name)
                     self.answers.pop(ans)
                     break
-                elif react.emoji.name == "five":
+                elif react.emoji == "5️⃣":
                     self.points[self.answers[ans]] += 5
                     print("5pts given to " + self.answers[ans].name)
                     self.answers.pop(ans)
