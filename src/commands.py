@@ -20,7 +20,7 @@ class Commands:
         self.scoreboard_msg = await channel.send("```Scoreboard\n```")
 
     async def answer(self, message):
-        if is_speed_mode:
+        if self.is_speed_mode:
             music.pause(channel)
         else:
             msg_id = await self.channel.send(message.author.name + ": \"" + message.content + '\"')
@@ -42,7 +42,7 @@ class Commands:
         for user in l:
             new_sb = new_sb + self.client.get_user(user) + ": " + self.points[user] + '\n'
         self.save_scores(new_sb)
-        if scoreboard_msg:
+        if self.scoreboard_msg:
             new_sb = "```Scoreboard\n" + new_sb + "```"
             await self.scoreboard_msg.edit(content=new_sb)
         print("scoreboard updated")
