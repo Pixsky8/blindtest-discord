@@ -2,6 +2,7 @@ import asyncio
 import discord
 import config
 import music
+import debug
 
 class Commands:
     client = None           # discord.client
@@ -26,9 +27,11 @@ class Commands:
             msg_id = await self.channel.send(message.author.name + ": \"" + message.content + '\"')
             self.answers[msg_id] = message.author
         await message.add_reaction('👍')
+        dbg_print_dict("answer", self.answer)
 
     async def update_scoreboard(self):
         print("updating scoreboard")
+        dbg_print_dict("points b4", self.points)
         l = []  # list of users ordered per pts
         for user in self.points:
             added = False
@@ -38,6 +41,7 @@ class Commands:
                     added = True
             if not added:
                 l.append(user)
+        dbg_print_dict("points after", self.points)
         new_sb = ""
         for user in l:
             new_sb = new_sb + self.client.get_user(user) + ": " + self.points[user] + '\n'
