@@ -9,7 +9,7 @@ def dbg_print_dict(name, dict):
 def dbg_print_answer_dict(dict):
     print("anwsers {")
     for message in dict:
-        print(message.id + ": " + dict[key].name + ',')
+        print(str(message.id) + ": " + dict[key].name + ',')
     print('}')
 
 def dbg_print_points_dict(name, dict):
