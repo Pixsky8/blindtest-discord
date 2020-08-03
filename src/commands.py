@@ -27,7 +27,7 @@ class Commands:
             music.pause(channel)
         else:
             msg_id = await self.channel.send(message.author.name + ": \"" + message.content + '\"')
-            self.answers_mutex.aquire()
+            self.answers_mutex.acquire()
             try:
                 self.answers[msg_id] = message.author
             finally:
@@ -64,7 +64,7 @@ class Commands:
         f.close()
 
     async def give_pts(self): # takes tuple
-        self.answers_mutex.aquire()
+        self.answers_mutex.acquire()
         try:
             for ans in self.answers:
                 ans_upd = await self.channel.fetch_message(ans.id)
