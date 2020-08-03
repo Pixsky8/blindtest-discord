@@ -2,6 +2,7 @@ import asyncio
 import discord
 import config
 import music
+from threading import Thread, Lock
 from debug import *
 
 class Commands:
@@ -9,6 +10,7 @@ class Commands:
     channel = None          # discord.channel: adm channel
     scoreboard_msg = None   # discord.message
     is_speed_mode = False   # bool: speed or answer mode
+    answers_mutex = Lock()
     answers = {}            # dict {answer_text(message): author(discord user)}
     points = {}             # dict {author: points(int)}
 
@@ -25,7 +27,11 @@ class Commands:
             music.pause(channel)
         else:
             msg_id = await self.channel.send(message.author.name + ": \"" + message.content + '\"')
-            self.answers[msg_id] = message.author
+            answers_mutex.aquire()
+            try:
+                self.answers[msg_id] = message.author
+            finally:
+                answers_mutex.release()
         await message.add_reaction('👍')
         dbg_print_answer_dict(self.answers)
 
@@ -58,27 +64,31 @@ class Commands:
         f.close()
 
     async def give_pts(self): # takes tuple
-        for ans in self.answers:
-            ans_upd = await self.channel.fetch_message(ans.id)
-            if len(ans_upd.reactions) > 0:
-                if not self.answers[ans] in self.points:
-                    self.points[self.answers[ans]] = 0
-                for react in ans_upd.reactions:
-                    if str(react) == "1️⃣":
-                        self.points[self.answers[ans]] += 1
-                        print("1pt given to " + self.answers[ans].name)
-                    elif str(react) == "2️⃣":
-                        self.points[self.answers[ans]] += 2
-                        print("2pts given to " + self.answers[ans].name)
-                    elif str(react) == "3️⃣":
-                        self.points[self.answers[ans]] += 3
-                        print("3pts given to " + self.answers[ans].name)
-                    elif str(react) == "4️⃣":
-                        self.points[self.answers[ans]] += 4
-                        print("4pts given to " + self.answers[ans].name)
-                    elif str(react) == "5️⃣":
-                        self.points[self.answers[ans]] += 5
-                        print("5pts given to " + self.answers[ans].name)
-                self.answers.pop(ans)
-        if self.scoreboard_msg:
-            await self.update_scoreboard()
+        answers_mutex.aquire()
+        try:
+            for ans in self.answers:
+                ans_upd = await self.channel.fetch_message(ans.id)
+                if len(ans_upd.reactions) > 0:
+                    if not self.answers[ans] in self.points:
+                        self.points[self.answers[ans]] = 0
+                    for react in ans_upd.reactions:
+                        if str(react) == "1️⃣":
+                            self.points[self.answers[ans]] += 1
+                            print("1pt given to " + self.answers[ans].name)
+                        elif str(react) == "2️⃣":
+                            self.points[self.answers[ans]] += 2
+                            print("2pts given to " + self.answers[ans].name)
+                        elif str(react) == "3️⃣":
+                            self.points[self.answers[ans]] += 3
+                            print("3pts given to " + self.answers[ans].name)
+                        elif str(react) == "4️⃣":
+                            self.points[self.answers[ans]] += 4
+                            print("4pts given to " + self.answers[ans].name)
+                        elif str(react) == "5️⃣":
+                            self.points[self.answers[ans]] += 5
+                            print("5pts given to " + self.answers[ans].name)
+                    self.answers.pop(ans)
+            if self.scoreboard_msg:
+                await self.update_scoreboard()
+        finally:
+            answers_mutex.release()
