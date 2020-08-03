@@ -58,12 +58,13 @@ async def on_message(message):
             elif text.startswith("set_adm_chan") and message.author.id in conf.admins:
                 print("adm channel set")
                 data.cmd = commands.Commands(client, message.channel, IS_SPEED_MODE)
-                await data.cmd.channel.send("adm channel set")
+                msg_tmp = await data.cmd.channel.send("adm channel set")
+                await message.delete()
+                await msg_tmp.delete(delay=5)
 
             elif text.startswith("set_sb_chan") and message.author.id in conf.admins:
                 print("sb channel set")
                 cmd.set_sb_chan(message.channel)
-                await data.cmd.scoreboard_chan.send("sb channel set")
             # end admin commands
 
         elif message.channel.type is discord.ChannelType.private:
