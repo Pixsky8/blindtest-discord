@@ -43,7 +43,7 @@ class Commands:
                     elif react.emoji == "5️⃣":
                         self.points[self.answers[answer]] += 5
                 self.answers.pop(answer)
-        if scoreboard_msg:
+        if scoreboard_msg is not None:
             await update_scoreboard()
 
     async def update_scoreboard(self):
