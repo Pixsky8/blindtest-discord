@@ -89,7 +89,7 @@ class Commands:
                             self.points[self.answers[ans]] += 5
                             print("5pts given to " + self.answers[ans].name)
                     to_pop.append(ans)
-            for ans in to_pop():
+            for ans in to_pop:
                 self.answers.pop(ans)
             if self.scoreboard_msg:
                 await self.update_scoreboard()
