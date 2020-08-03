@@ -60,7 +60,7 @@ async def on_message(message):
                 data.cmd = commands.Commands(client, message.channel, IS_SPEED_MODE)
                 msg_tmp = await data.cmd.channel.send("adm channel set")
                 await message.delete()
-                await msg_tmp.delete(delay=5)
+                await msg_tmp.delete(delay=20)
 
             elif text.startswith("set_sb_chan") and message.author.id in conf.admins:
                 print("sb channel set")
