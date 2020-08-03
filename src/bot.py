@@ -19,7 +19,7 @@ async def timer():
     await client.wait_until_ready()
     while True:
         if data.cmd:
-            data.cmd.give_pts()
+            await data.cmd.give_pts()
         await asyncio.sleep(20)
 
 
