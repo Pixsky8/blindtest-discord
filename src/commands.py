@@ -33,11 +33,10 @@ class Commands:
             finally:
                 self.answers_mutex.release()
         await message.add_reaction('👍')
-        dbg_print_answer_dict(self.answers)
 
     async def update_scoreboard(self):
         #print("updating scoreboard")
-        #dbg_print_points_dict("points b4", self.points)
+        dbg_print_points_dict("points b4", self.points)
         l = []  # list of users ordered per pts
         for user in self.points:
             added = False
@@ -47,7 +46,7 @@ class Commands:
                     added = True
             if not added:
                 l.append(user)
-        #dbg_print_dict("points after", self.points)
+        dbg_print_dict("points after", self.points)
         new_sb = ""
         for user in l:
             new_sb = new_sb + self.client.get_user(user).name + ": " + self.points[user] + '\n'

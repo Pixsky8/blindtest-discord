@@ -20,7 +20,6 @@ async def timer():
     await client.wait_until_ready()
     while True:
         if data.cmd:
-            dbg_print_answer_dict(data.cmd.answers)
             await data.cmd.give_pts()
         await asyncio.sleep(20)
 
