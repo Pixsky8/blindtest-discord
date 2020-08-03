@@ -63,8 +63,12 @@ async def on_message(message):
                 await msg_tmp.delete(delay=20)
 
             elif text.startswith("set_sb_chan") and message.author.id in conf.admins:
-                print("sb channel set")
-                await data.cmd.set_sb_chan(message.channel)
+                if data.cmd:
+                    print("sb channel set")
+                    await data.cmd.set_sb_chan(message.channel)
+                else:
+                    await message.channel.send("Set admin channel first.")
+                    await message.delete(delay=30)
                 await message.delete()
             # end admin commands
 
