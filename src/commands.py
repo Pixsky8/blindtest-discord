@@ -28,7 +28,6 @@ class Commands:
         await message.add_reaction('👍')
 
     async def give_pts(self): # takes tuple
-        global scoreboard_msg
         for answer in self.answers:
             if len(answer.reactions) > 0:
                 for react in answer.reactions:
@@ -43,7 +42,7 @@ class Commands:
                     elif react.emoji == "5️⃣":
                         self.points[self.answers[answer]] += 5
                 self.answers.pop(answer)
-        if scoreboard_msg is not None:
+        if self.scoreboard_msg:
             await update_scoreboard()
 
     async def update_scoreboard(self):
