@@ -28,6 +28,7 @@ class Commands:
         await message.add_reaction('👍')
 
     async def update_scoreboard(self):
+        print("updating scoreboard")
         l = []  # list of users ordered per pts
         for user in self.points:
             added = False
@@ -43,6 +44,7 @@ class Commands:
         if scoreboard_chan:
             new_sb = "```Scoreboard\n" + new_sb + "```"
             await self.scoreboard_msg.edit(content=new_sb)
+        print("scoreboard updated")
 
     async def give_pts(self): # takes tuple
         for answer in self.answers:
