@@ -27,7 +27,7 @@ class Commands:
             msg_id = await self.channel.send(message.author.name + ": \"" + message.content + '\"')
             self.answers[msg_id] = message.author
         await message.add_reaction('👍')
-        dbg_print_dict("answer", self.answer)
+        dbg_print_dict("answer", self.answers)
 
     async def update_scoreboard(self):
         print("updating scoreboard")
