@@ -42,7 +42,7 @@ class Commands:
         for user in l:
             new_sb = new_sb + self.client.get_user(user) + ": " + self.points[user] + '\n'
         self.save_scores(new_sb)
-        if scoreboard_chan:
+        if scoreboard_msg:
             new_sb = "```Scoreboard\n" + new_sb + "```"
             await self.scoreboard_msg.edit(content=new_sb)
         print("scoreboard updated")
