@@ -15,5 +15,5 @@ def dbg_print_answer_dict(dict):
 def dbg_print_points_dict(name, dict):
     print(name + " {")
     for user in dict:
-        print(user.name + ": " + dict[key] + ',')
+        print(user.name + ": " + str(dict[key]) + ',')
     print('}')
