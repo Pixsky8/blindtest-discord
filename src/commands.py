@@ -57,10 +57,36 @@ class Commands:
         f.write(scoreboard)
         f.close()
 
-    async def give_pts(self):
-        for ans in self.answers:
-            print(ans.reactions)
+    async def give_pts(self): # takes tuple
+        for answer in self.answers:
+            ans = await client.get_message(self.channel, answer.id)
+            print("test: " + ans.reactions) # dbg
             for react in ans.reactions:
-                print(react.emoji.name)
+                print("emoji: " + react.emoji.name) # dbg
+                if react.emoji.name == "one":
+                    self.points[self.answers[ans]] += 1
+                    print("1pt given to " + self.answers[ans].name)
+                    self.answers.pop(ans)
+                    break
+                elif react.emoji.name == "two":
+                    self.points[self.answers[ans]] += 2
+                    print("2pts given to " + self.answers[ans].name)
+                    self.answers.pop(ans)
+                    break
+                elif react.emoji.name == "three":
+                    self.points[self.answers[ans]] += 3
+                    print("3pts given to " + self.answers[ans].name)
+                    self.answers.pop(ans)
+                    break
+                elif react.emoji.name == "four":
+                    self.points[self.answers[ans]] += 4
+                    print("4pts given to " + self.answers[ans].name)
+                    self.answers.pop(ans)
+                    break
+                elif react.emoji.name == "five":
+                    self.points[self.answers[ans]] += 5
+                    print("5pts given to " + self.answers[ans].name)
+                    self.answers.pop(ans)
+                    break
         if self.scoreboard_msg:
             await self.update_scoreboard()
