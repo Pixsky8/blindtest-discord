@@ -38,8 +38,9 @@ class Commands:
                     added = True
             if not added:
                 l.append(user)
+        new_sb = ""
         for user in l:
-            new_sb = self.client.get_user(user) + ": " + self.points[user] + '\n'
+            new_sb = new_sb + self.client.get_user(user) + ": " + self.points[user] + '\n'
         self.save_scores(new_sb)
         if scoreboard_chan:
             new_sb = "```Scoreboard\n" + new_sb + "```"
