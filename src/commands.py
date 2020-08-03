@@ -50,7 +50,7 @@ class Commands:
         #dbg_print_dict("points after", self.points)
         new_sb = ""
         for user in l:
-            new_sb = new_sb + self.client.get_user(user) + ": " + self.points[user] + '\n'
+            new_sb = new_sb + self.client.get_user(user).name + ": " + self.points[user] + '\n'
         self.save_scores(new_sb)
         if self.scoreboard_msg:
             new_sb = "```Scoreboard\n" + new_sb + "```"
