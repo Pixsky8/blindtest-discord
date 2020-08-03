@@ -5,6 +5,7 @@ import config
 import music
 import commands
 
+from debug import *
 
 IS_SPEED_MODE = False
 
@@ -19,6 +20,7 @@ async def timer():
     await client.wait_until_ready()
     while True:
         if data.cmd:
+            dbg_print_answer_dict(data.cmd.answer)
             await data.cmd.give_pts()
         await asyncio.sleep(20)
 
