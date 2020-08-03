@@ -59,7 +59,7 @@ class Commands:
 
     async def give_pts(self): # takes tuple
         for answer in self.answers:
-            ans = await client.get_message(self.channel, answer.id)
+            ans = await self.client.get_message(self.channel, answer.id)
             print("test: " + ans.reactions) # dbg
             for react in ans.reactions:
                 print("emoji: " + react.emoji.name) # dbg
