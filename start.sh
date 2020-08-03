@@ -1,3 +1,3 @@
 #!/bin/sh
 
-docker run -itv ${pwd}/data:/data discord_blindtest
+docker run -itv $(pwd)/data:/data discord_blindtest
