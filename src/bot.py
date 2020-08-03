@@ -65,6 +65,7 @@ async def on_message(message):
             elif text.startswith("set_sb_chan") and message.author.id in conf.admins:
                 print("sb channel set")
                 await data.cmd.set_sb_chan(message.channel)
+                await message.delete()
             # end admin commands
 
         elif message.channel.type is discord.ChannelType.private:
