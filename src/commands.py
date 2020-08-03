@@ -62,7 +62,7 @@ class Commands:
                         self.points[self.answers[answer]] += 5
                 self.answers.pop(answer)
         if self.scoreboard_msg:
-            await update_scoreboard()
+            await self.update_scoreboard()
 
     def save_scores(self, scoreboard):
         f = open("data/score.txt", "w")
