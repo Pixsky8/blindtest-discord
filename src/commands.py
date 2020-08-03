@@ -62,7 +62,7 @@ class Commands:
             ans = await self.channel.fetch_message(answer.id)
             print(ans.reactions) # dbg
             for react in ans.reactions:
-                print("emoji: " + react.emoji.name) # dbg
+                print("emoji: " + str(react)) # dbg
                 if react.emoji.name == "one":
                     self.points[self.answers[ans]] += 1
                     print("1pt given to " + self.answers[ans].name)
