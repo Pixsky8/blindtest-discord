@@ -58,32 +58,30 @@ class Commands:
         f.close()
 
     async def give_pts(self): # takes tuple
-        for answer in self.answers:
-            ans = await self.channel.fetch_message(answer.id)
-            print(ans.reactions) # dbg
-            for react in ans.reactions:
-                print("emoji: " + str(react)) # dbg
-                if react.emoji == "1️⃣":
+        for ans in self.answers:
+            ans_upd = await self.channel.fetch_message(ans.id)
+            for react in ans_upd.reactions:
+                if str(react) == "1️⃣":
                     self.points[self.answers[ans]] += 1
                     print("1pt given to " + self.answers[ans].name)
                     self.answers.pop(ans)
                     break
-                elif react.emoji == "2️⃣":
+                elif str(react) == "2️⃣":
                     self.points[self.answers[ans]] += 2
                     print("2pts given to " + self.answers[ans].name)
                     self.answers.pop(ans)
                     break
-                elif react.emoji == "3️⃣":
+                elif str(react) == "3️⃣":
                     self.points[self.answers[ans]] += 3
                     print("3pts given to " + self.answers[ans].name)
                     self.answers.pop(ans)
                     break
-                elif react.emoji == "4️⃣":
+                elif str(react) == "4️⃣":
                     self.points[self.answers[ans]] += 4
                     print("4pts given to " + self.answers[ans].name)
                     self.answers.pop(ans)
                     break
-                elif react.emoji == "5️⃣":
+                elif str(react) == "5️⃣":
                     self.points[self.answers[ans]] += 5
                     print("5pts given to " + self.answers[ans].name)
                     self.answers.pop(ans)
