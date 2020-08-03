@@ -63,14 +63,19 @@ class Commands:
                 for react in answer.reactions:
                     if react.emoji == "1️⃣": # TODO
                         self.points[self.answers[answer]] += 1
+                        print("1pt given to " + self.answers[answer].name)
                     elif react.emoji == "2️⃣":
                         self.points[self.answers[answer]] += 2
+                        print("2pts given to " + self.answers[answer].name)
                     elif react.emoji == "3️⃣":
                         self.points[self.answers[answer]] += 3
+                        print("3pts given to " + self.answers[answer].name)
                     elif react.emoji == "4️⃣":
                         self.points[self.answers[answer]] += 4
+                        print("4pts given to " + self.answers[answer].name)
                     elif react.emoji == "5️⃣":
                         self.points[self.answers[answer]] += 5
+                        print("5pts given to " + self.answers[answer].name)
                 self.answers.pop(answer)
         if self.scoreboard_msg:
             await self.update_scoreboard()
