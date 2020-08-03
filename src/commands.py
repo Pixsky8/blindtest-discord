@@ -27,11 +27,11 @@ class Commands:
             music.pause(channel)
         else:
             msg_id = await self.channel.send(message.author.name + ": \"" + message.content + '\"')
-            answers_mutex.aquire()
+            self.answers_mutex.aquire()
             try:
                 self.answers[msg_id] = message.author
             finally:
-                answers_mutex.release()
+                self.answers_mutex.release()
         await message.add_reaction('👍')
         dbg_print_answer_dict(self.answers)
 
@@ -64,7 +64,7 @@ class Commands:
         f.close()
 
     async def give_pts(self): # takes tuple
-        answers_mutex.aquire()
+        self.answers_mutex.aquire()
         try:
             for ans in self.answers:
                 ans_upd = await self.channel.fetch_message(ans.id)
@@ -91,4 +91,4 @@ class Commands:
             if self.scoreboard_msg:
                 await self.update_scoreboard()
         finally:
-            answers_mutex.release()
+            self.answers_mutex.release()
