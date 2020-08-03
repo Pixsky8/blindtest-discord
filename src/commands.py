@@ -27,11 +27,11 @@ class Commands:
             msg_id = await self.channel.send(message.author.name + ": \"" + message.content + '\"')
             self.answers[msg_id] = message.author
         await message.add_reaction('👍')
-        dbg_print_dict("answer", self.answers)
+        dbg_print_answer_dict(self.answers)
 
     async def update_scoreboard(self):
         print("updating scoreboard")
-        dbg_print_dict("points b4", self.points)
+        dbg_print_points_dict("points b4", self.points)
         l = []  # list of users ordered per pts
         for user in self.points:
             added = False
