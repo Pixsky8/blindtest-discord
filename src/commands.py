@@ -27,7 +27,7 @@ class Commands:
             self.answers[message.author] = msg_id
         await message.add_reaction('👍')
 
-    await def give_pts(self): # takes tuple
+    async def give_pts(self): # takes tuple
         for answer in self.answers:
             if len(answer.reactions) > 0:
                 for react in answer.reactions:
