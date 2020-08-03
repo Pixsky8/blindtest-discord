@@ -2,7 +2,7 @@ import asyncio
 import discord
 import config
 import music
-from debug import *
+import debug
 
 class Commands:
     client = None           # discord.client
