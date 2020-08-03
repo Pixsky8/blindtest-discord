@@ -24,7 +24,7 @@ class Commands:
             music.pause(channel)
         else:
             msg_id = await self.channel.send(message.author.name + ": \"" + message.content + '\"')
-            self.answers[message.author] = msg_id
+            self.answers[msg_id] = message.author
         await message.add_reaction('👍')
 
     async def update_scoreboard(self):
