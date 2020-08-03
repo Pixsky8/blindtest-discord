@@ -66,6 +66,7 @@ class Commands:
     async def give_pts(self): # takes tuple
         self.answers_mutex.acquire()
         try:
+            to_pop = []
             for ans in self.answers:
                 ans_upd = await self.channel.fetch_message(ans.id)
                 if len(ans_upd.reactions) > 0:
@@ -87,7 +88,9 @@ class Commands:
                         elif str(react) == "5️⃣":
                             self.points[self.answers[ans]] += 5
                             print("5pts given to " + self.answers[ans].name)
-                    self.answers.pop(ans)
+                    to_pop.append(ans)
+            for ans in to_pop():
+                self.answers.pop(ans)
             if self.scoreboard_msg:
                 await self.update_scoreboard()
         finally:
