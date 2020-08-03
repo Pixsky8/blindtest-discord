@@ -59,24 +59,32 @@ class Commands:
 
     async def give_pts(self): # takes tuple
         for answer in self.answers:
-            if len(answer.reactions) > 0:
-                for react in answer.reactions:
-                    print("emoji: " + react.emoji.name)
-                    if react.emoji.name == "one": # TODO
-                        self.points[self.answers[answer]] += 1
-                        print("1pt given to " + self.answers[answer].name)
-                    elif react.emoji.name == "two":
-                        self.points[self.answers[answer]] += 2
-                        print("2pts given to " + self.answers[answer].name)
-                    elif react.emoji.name == "three":
-                        self.points[self.answers[answer]] += 3
-                        print("3pts given to " + self.answers[answer].name)
-                    elif react.emoji.name == "four":
-                        self.points[self.answers[answer]] += 4
-                        print("4pts given to " + self.answers[answer].name)
-                    elif react.emoji.name == "five":
-                        self.points[self.answers[answer]] += 5
-                        print("5pts given to " + self.answers[answer].name)
-                self.answers.pop(answer)
+            for react in answer.reactions:
+                print("emoji: " + react.emoji.name)
+                if react.emoji.name == "one": # TODO
+                    self.points[self.answers[answer]] += 1
+                    print("1pt given to " + self.answers[answer].name)
+                    self.answers.pop(answer)
+                    break
+                elif react.emoji.name == "two":
+                    self.points[self.answers[answer]] += 2
+                    print("2pts given to " + self.answers[answer].name)
+                    self.answers.pop(answer)
+                    break
+                elif react.emoji.name == "three":
+                    self.points[self.answers[answer]] += 3
+                    print("3pts given to " + self.answers[answer].name)
+                    self.answers.pop(answer)
+                    break
+                elif react.emoji.name == "four":
+                    self.points[self.answers[answer]] += 4
+                    print("4pts given to " + self.answers[answer].name)
+                    self.answers.pop(answer)
+                    break
+                elif react.emoji.name == "five":
+                    self.points[self.answers[answer]] += 5
+                    print("5pts given to " + self.answers[answer].name)
+                    self.answers.pop(answer)
+                    break
         if self.scoreboard_msg:
             await self.update_scoreboard()
