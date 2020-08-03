@@ -60,7 +60,7 @@ class Commands:
     async def give_pts(self): # takes tuple
         for ans in self.answers:
             ans_upd = await self.channel.fetch_message(ans.id)
-            if len(ans_upd) > 0:
+            if len(ans_upd.reactions) > 0:
                 if not self.answers[ans] in self.points:
                     self.points[self.answers[ans]] = 0
                 for react in ans_upd.reactions:
