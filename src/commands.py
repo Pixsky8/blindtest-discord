@@ -40,11 +40,17 @@ class Commands:
                 l.append(user)
         for user in l:
             new_sb = self.client.get_user(user) + ": " + self.points[user] + '\n'
-        save_scores(new_sb)
+        self.save_scores(new_sb)
         if scoreboard_chan:
             new_sb = "```Scoreboard\n" + new_sb + "```"
             await self.scoreboard_msg.edit(content=new_sb)
         print("scoreboard updated")
+
+
+    def save_scores(self, scoreboard):
+        f = open("data/score.txt", "w")
+        f.write(scoreboard)
+        f.close()
 
     async def give_pts(self): # takes tuple
         for answer in self.answers:
@@ -63,8 +69,3 @@ class Commands:
                 self.answers.pop(answer)
         if self.scoreboard_msg:
             await self.update_scoreboard()
-
-    def save_scores(self, scoreboard):
-        f = open("data/score.txt", "w")
-        f.write(scoreboard)
-        f.close()
