@@ -7,7 +7,7 @@ from debug import *
 
 class Commands:
     client = None           # discord.client
-    config = None
+    config = None           # Config class
     channel = None          # discord.channel: adm channel
     scoreboard_msg = None   # discord.message
     is_speed_mode = False   # bool: speed or answer mode

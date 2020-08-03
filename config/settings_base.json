@@ -1,6 +1,6 @@
 {
-    "token": "",
+    "token": "REPLACE TOKEN",
     "prefix": "=",
-    "admins": [],
+    "admins": [YOUR DISCORD USER ID],
     "false_malus": 0
 }
