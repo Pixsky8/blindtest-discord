@@ -7,6 +7,7 @@ from debug import *
 
 class Commands:
     client = None           # discord.client
+    config = None
     channel = None          # discord.channel: adm channel
     scoreboard_msg = None   # discord.message
     is_speed_mode = False   # bool: speed or answer mode
@@ -15,9 +16,10 @@ class Commands:
     answers = {}            # dict {answer_text(message): author(discord user)}
     points = {}             # dict {author: points(int)}
 
-    def __init__(self, client, channel, is_speed_mode):
+    def __init__(self, client, config, channel, is_speed_mode):
         self.channel = channel
         self.client = client
+        self.config = config
         self.is_speed_mode = is_speed_mode
 
     async def set_sb_chan(self, channel):
@@ -40,13 +42,12 @@ class Commands:
     async def answer(self, message):
         if self.is_speed_mode:
             music.pause(channel)
-        else:
-            msg_id = await self.channel.send(message.author.name + ": \"" + message.content + '\"')
-            self.answers_mutex.acquire()
-            try:
-                self.answers[msg_id] = message.author
-            finally:
-                self.answers_mutex.release()
+        msg_id = await self.channel.send(message.author.name + ": \"" + message.content + '\"')
+        self.answers_mutex.acquire()
+        try:
+            self.answers[msg_id] = message.author
+        finally:
+            self.answers_mutex.release()
         await message.add_reaction('👍')
 
     async def update_scoreboard(self):
@@ -103,6 +104,10 @@ class Commands:
                         elif str(react) == "5️⃣":
                             self.points[self.answers[ans]] += 5
                             print("5pts given to " + self.answers[ans].name)
+                        elif str(react) == '🚫':
+                            self.points[self.answers[ans]] -= config.false_malus
+                            if self.is_speed_mode:
+                                music.resume(ans.channel)
                     to_pop.append(ans)
             for ans in to_pop:
                 self.answers.pop(ans)

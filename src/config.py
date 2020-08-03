@@ -7,6 +7,7 @@ class Config:
     prefix = ""     # string
     prefix_len = 0  # integer
     admins = []     # array of integer
+    false_malus = 0 # integer
 
     def __init__(self):
         if not os.path.exists("config/settings.json"):
@@ -14,6 +15,7 @@ class Config:
             raise NameError("Cannot open config/settings.json")
         fsett = open("config/settings.json")
         data = json.load(fsett)
+        self.false_malus = data["false_malus"]
         self.token = data["token"]
         self.prefix = data["prefix"]
         self.prefix_len = len(self.prefix)
@@ -26,6 +28,7 @@ class Config:
             "token": self.token,
             "prefix": self.prefix,
             "admins": self.admins
+            "false_malus": self.false_malus
         }
 
         json_data = json.dumps(data, indent=2)
@@ -44,6 +47,10 @@ class Config:
     def change_prefix(self, prefix):
         self.prefix = prefix
         self.prefix_len = len(self.prefix)
+        self.save()
+
+    def set_false_malus(self, malus):
+        self.false_malus = malus
         self.save()
 
 

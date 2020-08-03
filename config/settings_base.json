@@ -1,5 +1,6 @@
 {
     "token": "",
     "prefix": "=",
-    "admins": []
+    "admins": [],
+    "false_malus": 0
 }
