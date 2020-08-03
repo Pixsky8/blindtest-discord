@@ -59,7 +59,8 @@ class Commands:
 
     async def give_pts(self):
         for ans in self.answers:
+            print(ans.reactions)
             for react in ans.reactions:
-                print("bruh")
+                print(react.emoji.name)
         if self.scoreboard_msg:
             await self.update_scoreboard()
