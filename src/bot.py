@@ -80,8 +80,6 @@ async def on_message(message):
                 await message.channel.send("The game is not open yet.")
 
 
-            elif text.startswith("music"):
-                
 
 
 client.loop.create_task(timer())
