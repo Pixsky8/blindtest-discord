@@ -4,6 +4,7 @@ data/score.txt
 *.mp3
 *.wav
 *.webm
+*.opus
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

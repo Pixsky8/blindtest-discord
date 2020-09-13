@@ -105,7 +105,7 @@ class Commands:
                             self.points[self.answers[ans]] += 5
                             print("5pts given to " + self.answers[ans].name)
                         elif str(react) == '🚫':
-                            self.points[self.answers[ans]] -= config.false_malus
+                            self.points[self.answers[ans]] -= self.config.false_malus
                             if self.is_speed_mode:
                                 music.resume(ans.channel)
                     to_pop.append(ans)

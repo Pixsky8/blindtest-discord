@@ -5,9 +5,10 @@ import config
 
 voice_client = None
 config = config.Config()
-queue = {}
+queue = []
 
 async def summon(msg):
+    global voice_client
     if not msg.author.voice:
         await msg.channel.send('You are neither connected to a voice channel nor specified a channel to join.')
     destination = msg.author.voice.channel
@@ -20,38 +21,56 @@ async def summon(msg):
 
 
 async def disconnect(channel):
-    await voice_client.disconnect()
-    await channel.send("Disconnected.")
+    global voice_client
+    if voice_client:
+        await voice_client.disconnect()
+        await channel.send("Disconnected.")
+    else:
+        await channel.send("Not connected.")
 
 
-async def play():
-    source = await discord.FFmpegOpusAudio.from_probe(queue.pop(0))
-    await voice_client.play(source, after=play)
+async def play_music():
+    global voice_client
+    global queue
+    if voice_client:
+        music_playing = queue.pop(0)
+        source = await discord.FFmpegOpusAudio.from_probe(music_playing)
+        await voice_client.play(source, after=play_music)
 
 
 async def stop(channel):
-    await voice_client.stop()
-    await channel.send("Stopped music.")
+    global voice_client
+    global queue
+    if voice_client:
+        queue = []
+        await channel.send("Stopped music.")
+        await voice_client.stop()
+    else:
+        await channel.send("No music is playing.")
 
 
 async def pause(channel):
-    if voice_client.is_playing():
-        await voice_client.pause()
+    global voice_client
+    if voice_client and voice_client.is_playing():
         await channel.send("Paused.")
+        await voice_client.pause()
     else:
         await channel.send("Nothing is being played.")
 
 
 async def resume(channel):
-    if voice_client.is_paused():
+    global voice_client
+    if voice_client and voice_client.is_paused():
+        await channel.send("Music resumed.")
         await voice_client.resume()
-        await channel.resume("Music resumed.")
     else:
-        await channel.resume("Music is not paused.")
+        await channel.send("Music is not paused.")
 
 
 async def enqueue(msg, arg):
-    if not voice_client.is_connected():
+    global voice_client
+    global queue
+    if not voice_client or not voice_client.is_connected():
         await summon(msg)
 
     if voice_client.is_paused():
@@ -60,7 +79,7 @@ async def enqueue(msg, arg):
     if arg and arg != "":
         queue.append(arg)
         if not voice_client.is_playing():
-            await play()
+            await play_music()
             msg.channel.send("Now playing.")
         else:
             msg.channel.send("Music queued.")
@@ -78,6 +97,8 @@ async def music(msg):
         elif args[1] == "play":
             if len(args) > 2:
                 await enqueue(msg, args[2])
+            else:
+                await msg.channel.send("No files specified.")
         elif args[1] == "stop":
             await stop(msg.channel)
         elif args[1] == "pause":

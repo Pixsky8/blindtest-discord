@@ -42,7 +42,7 @@ async def on_message(message):
             # admin commands
             elif text.startswith("music") and message.author.id in conf.admins:
                 if message.author.id in conf.admins:
-                    await music.music(data, message)
+                    await music.music(message)
 
             elif text.startswith("is_adm"):
                 if message.author.id in conf.admins:

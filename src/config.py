@@ -27,7 +27,7 @@ class Config:
         data = {
             "token": self.token,
             "prefix": self.prefix,
-            "admins": self.admins
+            "admins": self.admins,
             "false_malus": self.false_malus
         }
 
